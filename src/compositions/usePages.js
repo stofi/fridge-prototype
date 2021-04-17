@@ -22,6 +22,11 @@ const usePages = () => {
       path: '/inventory',
       icon: 'Database',
     },
+    {
+      name: 'Spaces',
+      path: '/spaces',
+      icon: 'Database',
+    },
   ])
   return {
     pages,

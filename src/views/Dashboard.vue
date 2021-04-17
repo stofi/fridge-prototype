@@ -1,13 +1,8 @@
 <template>
-  dashboard
+  <Login/>
 </template>
-
-<script>
-export default {
-
-}
+<script setup>
+import Login from '../components/Login.vue'
 </script>
 
-<style>
-
-</style>
+<style></style>
