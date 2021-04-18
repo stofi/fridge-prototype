@@ -1,23 +1,19 @@
 <template>
-  <div>
-    <div v-for="group in groups" :key="group._id">
-      <Group :group="group" />
-
-    </div>
-  </div>
+  <SmartList :items="groups">
+    <template v-slot:item="{ item }">
+      <Group v-bind="item" />
+    </template>
+  </SmartList>
 </template>
 
 <script setup>
 import Group from '../components/Group.vue'
-import { useStore } from 'vuex'
+import SmartList from '../components/SmartList.vue'
 
-import useAsyncComputed from '../compositions/useAsyncComputed'
+import useGroups from '../compositions/useGroups'
 
-const { dispatch } = useStore()
+const { add, remove, groups, haveLoaded } = useGroups()
 
-const [groups] = useAsyncComputed(
-  async () => await dispatch('groups/find').then(({ data }) => data)
-)
 </script>
 
 <style></style>

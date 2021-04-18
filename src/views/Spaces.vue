@@ -1,22 +1,17 @@
 <template>
-  <div>
-    <div v-for="space in spaces" :key="space._id">
-      <Space :space="space" />
-    </div>
-  </div>
+  <SmartList :items="spaces">
+    <template v-slot:item="{ item }">
+      <Space v-bind="item" />
+    </template>
+  </SmartList>
 </template>
 
 <script setup>
 import Space from '../components/Space.vue'
-import { useStore } from 'vuex'
+import SmartList from '../components/SmartList.vue'
+import useSpaces from '../compositions/useSpaces'
 
-import useAsyncComputed from '../compositions/useAsyncComputed'
-
-const { dispatch } = useStore()
-
-const [spaces] = useAsyncComputed(
-  async () => await dispatch('spaces/find').then(({ data }) => data)
-)
+const { spaces, add, remove, haveLoaded } = useSpaces()
 </script>
 
 <style></style>

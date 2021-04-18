@@ -102,7 +102,7 @@
     lodash "^4.17.20"
     radix-router "^3.0.1"
 
-"@feathersjs/vuex-commons@^0.0.2-pre.8":
+"@feathersjs/vuex-commons@^0.0.2-pre.16":
   version "0.0.2-pre.16"
   resolved "https://registry.yarnpkg.com/@feathersjs/vuex-commons/-/vuex-commons-0.0.2-pre.16.tgz#89408f2f3b4141c34d237f24f5c4d5b10fb95205"
   integrity sha512-inqb4Tq3ZRqsKBCEzqxktTg8GO8RgqpBhpZ4meNvN6csMXC5S9QXZBWSflKrstqKhDzn6toRCV6oqDopSKesbg==
@@ -126,12 +126,12 @@
     sift "^9.0.4"
     vue-demi latest
 
-"@feathersjs/vuex@^4.0.1-pre.7":
-  version "4.0.1-pre.7"
-  resolved "https://registry.yarnpkg.com/@feathersjs/vuex/-/vuex-4.0.1-pre.7.tgz#2dcab762eafc42898fff1027602e2f5c12063039"
-  integrity sha512-LUNVm5U69NC0lyLXHegQgmYAcOKZqskjbnyIG7biuJyrlyGtvDlQn4MaMsv68QBazLeJ/TJIsMvXG9aysum/dw==
+"@feathersjs/vuex@^4.0.1-pre.16":
+  version "4.0.1-pre.16"
+  resolved "https://registry.yarnpkg.com/@feathersjs/vuex/-/vuex-4.0.1-pre.16.tgz#5b102a2f1f4389861a02bc05e45473d9ba2dcfb4"
+  integrity sha512-Bo0ZAYf3ZN5fS4VGoTPKHTXQaw58lAcRD/agAfZ2tfVPtdxEnpoV2ABbKNXv9PDugI1c52wozuOY8qbcPbyHbA==
   dependencies:
-    "@feathersjs/vuex-commons" "^0.0.2-pre.8"
+    "@feathersjs/vuex-commons" "^0.0.2-pre.16"
     "@types/feathersjs__feathers" "^3.1.7"
     serialize-error "^7.0.1"
 

@@ -10,7 +10,7 @@
     "@feathersjs/authentication-client": "^4.5.11",
     "@feathersjs/feathers": "^4.5.11",
     "@feathersjs/socketio-client": "^4.5.11",
-    "@feathersjs/vuex": "^4.0.1-pre.7",
+    "@feathersjs/vuex": "^4.0.1-pre.16",
     "@headlessui/vue": "^1.0.0",
     "@heroicons/vue": "^1.0.1",
     "@tailwindcss/forms": "^0.3.2",

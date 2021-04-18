@@ -1,19 +1,18 @@
 <template>
-  <div>
-    <div v-for="instance in instances" :key="instance._id">{{ instance.name }}</div>
-  </div>
+  <SmartList :items="instances">
+    <template v-slot:item="{ item }">
+      <Instance v-bind="item" />
+    </template>
+  </SmartList>
 </template>
 
 <script setup>
 import { useStore } from 'vuex'
+import SmartList from '../components/SmartList.vue'
+import Instance from '../components/Instance.vue'
+import useInstances from '../compositions/useInstances'
 
-import useAsyncComputed from '../compositions/useAsyncComputed'
-
-const { dispatch } = useStore()
-
-const [instances] = useAsyncComputed(
-  async () => await dispatch('instances/find').then(({ data }) => data)
-)
+const { instances, add, remove, haveLoaded } = useInstances()
 </script>
 
 <style></style>

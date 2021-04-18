@@ -1,21 +1,29 @@
-import { computed, inject } from 'vue'
+import { computed, inject, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 
-
 export default function () {
-  const { state, dispatch } = useStore()
+  const { state, dispatch, getters } = useStore()
   const authState = computed(() => state.auth)
-  const user = computed(() => authState?.value?.payload?.user || null)
+  const user = computed(() => getters['auth/user'])
+  const feathers = inject('feathers')
+  const authOptions = feathers.apiClient.authentication.options
 
-  // const feathers = inject('feathers')
-  // feathers.apiClient.reAuthenticate().catch(() => {})
-  dispatch('auth/authenticate')  
+  if (authOptions != null && !user.value) {
+    const accessToken = feathers.apiClient.authentication.options.storage.getItem(
+      'feathers-jwt'
+    )
+    if (!!accessToken) {
+      feathers.apiClient.reAuthenticate().then((a) => {
+        dispatch('auth/authenticate')
+      })
+    }
+  }
 
   function logout() {
     dispatch('auth/logout')
   }
   function login(email, password) {
-    this.$store.dispatch('auth/authenticate', {
+    dispatch('auth/authenticate', {
       email,
       password,
       strategy: 'local',

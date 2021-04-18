@@ -1,4 +1,4 @@
-import { createStore } from 'vuex'
+import { createStore, createLogger } from 'vuex'
 import { users } from './services/users'
 import { instances } from './services/instances'
 import { products } from './services/products'
@@ -15,6 +15,7 @@ export function setupStore({ feathers }) {
     getters: {},
     modules: {},
     plugins: [
+      createLogger(),
       users({ feathers }),
       groups({ feathers }),
       instances({ feathers }),
