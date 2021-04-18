@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label :for="id" class="block text-sm font-medium text-gray-700">{{
+    <label :for="id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{
       name
     }}</label>
     <div class="mt-1 relative">
@@ -8,11 +8,12 @@
         :type="type"
         :name="id"
         :id="id"
-        class="shadow-sm block w-full sm:text-sm rounded-md"
+        :autocomplete="autocomplete"
+        class="shadow-sm block w-full sm:text-sm rounded-md placeholder-gray-800 dark:placeholder-gray-200 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 ring-offset-2 dark:border-gray-800"
         :class="
           slots.error
-            ? 'border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500'
-            : 'focus:ring-indigo-500 focus:border-indigo-500 border-gray-300'
+            ? 'border-red-300 text-red-900 focus:ring-red-500 focus:border-red-500 dark:border-red-700'
+            : 'focus:ring-brand focus:border-brand border-gray-300 dark:border-gray-700'
         "
         :placeholder="placeholder"
         :value="modelValue"
@@ -48,19 +49,19 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
-    default: 'input',
+    default: '',
   },
   type: {
     type: String,
     default: 'text',
   },
-  placeholder: {
-    type: String,
-    default: '',
-  },
   modelValue: {
     type: String,
   },
+  autocomplete: {
+    type: String,
+    default: ''
+  }
 })
 const { slots } = useContext()
 

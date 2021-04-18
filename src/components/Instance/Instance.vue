@@ -1,8 +1,10 @@
 <template>
-  <a href="#" class="block hover:bg-gray-50">
-    <div class="px-4 py-4 sm:px-6">
+  <div
+    class="grid grid-cols-1 md:grid-cols-12 px-4 py-4 sm:px-6 hover:bg-gray-50 dark:hover:bg-gray-700"
+  >
+    <div class="col-span-11">
       <div class="flex items-center justify-between">
-        <p class="text-sm font-medium text-indigo-600 truncate">
+        <p class="text-sm font-medium text-brand truncate">
           {{ product.name }}
         </p>
         <p class="flex items-center text-sm text-gray-500">
@@ -27,7 +29,15 @@
         </p>
       </div>
     </div>
-  </a>
+    <div class="col-span-1 flex justify-end">
+      <button
+        @click="$emit('remove')"
+        class="inline-flex items-center text-gray-500 focus:outline-none focus:text-red-500"
+      >
+        <TrashIcon class="block h-6 w-6 fill-current" aria-hidden="true" />
+      </button>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -35,8 +45,10 @@ import {
   CalendarIcon,
   LocationMarkerIcon,
   UsersIcon,
+  TrashIcon,
 } from '@heroicons/vue/solid'
 import { defineProps } from 'vue'
+import ButtonAdd from '../Button/ButtonAdd.vue'
 
 const props = defineProps({
   product: {

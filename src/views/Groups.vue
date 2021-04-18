@@ -1,16 +1,18 @@
 <template>
   <SmartList :items="groups">
     <template v-slot:item="{ item }">
-      <Group v-bind="item" />
+      <Group v-bind="item" @remove="remove(item._id)" />
     </template>
   </SmartList>
+  <GroupForm @add="add"/>
 </template>
 
 <script setup>
-import Group from '../components/Group.vue'
+import Group from '../components/Group/Group.vue'
 import SmartList from '../components/SmartList.vue'
+import GroupForm from '../components/Group/GroupForm.vue'
 
-import useGroups from '../compositions/useGroups'
+import useGroups from '../compositions/services/useGroup'
 
 const { add, remove, groups, haveLoaded } = useGroups()
 

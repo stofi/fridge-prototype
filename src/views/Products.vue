@@ -8,10 +8,10 @@
 </template>
 
 <script setup>
-import ProductComponent from '../components/Product.vue'
-import ProductForm from '../components/ProductForm.vue'
+import ProductComponent from '../components/Product/Product.vue'
+import ProductForm from '../components/Product/ProductForm.vue'
 import SmartList from '../components/SmartList.vue'
-import useProduct from '../compositions/useProduct'
+import useProduct from '../compositions/services/useProduct'
 
 const { add, remove, products, haveLoaded } = useProduct()
 </script>

@@ -1,5 +1,5 @@
 <template>
-  hi
+  <p class="px-4">hi</p>
 </template>
 <script setup>
 

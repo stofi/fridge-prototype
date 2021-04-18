@@ -1,9 +1,9 @@
 <template>
   <div
-    class="grid grid-cols-1 md:grid-cols-12 hover:bg-gray-50 px-4 py-4 sm:px-6"
+    class="grid grid-cols-1 md:grid-cols-12 hover:bg-gray-50 dark:hover:bg-gray-700 px-4 py-4 sm:px-6"
   >
     <div class="col-span-11 flex items-center justify-between">
-      <p class="text-sm font-medium text-indigo-600 truncate">
+      <p class="text-sm font-medium text-brand truncate">
         {{ name }}
       </p>
       <p class="flex items-center text-sm text-gray-500">
@@ -24,9 +24,6 @@
 
 <script setup>
 import {
-  CalendarIcon,
-  LocationMarkerIcon,
-  UsersIcon,
   TrashIcon,
 } from '@heroicons/vue/solid'
 import { defineProps, defineEmit } from 'vue'
