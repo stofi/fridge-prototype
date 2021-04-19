@@ -6,7 +6,7 @@ import { iff, discard } from 'feathers-hooks-common'
 import feathersVuex from '@feathersjs/vuex'
 
 export function setupFeathers({ storage = window.localStorage }) {
-  const apiUrl = 'localhost:3030'
+  const apiUrl = import.meta.env.VITE_API_URL
   const socket = io(apiUrl, { transports: ['websocket'] })
 
   const apiClient = feathers()
