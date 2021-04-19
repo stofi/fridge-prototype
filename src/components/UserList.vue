@@ -1,11 +1,11 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <ul class="divide-y divide-gray-200">
-    <li v-for="user in users" :key="user.email" class="py-4 flex">
+    <li v-for="user in users" :key="user.username" class="py-4 flex">
       <!-- <img class="h-10 w-10 rounded-full" :src="user.image" alt="" /> -->
       <div class="ml-3">
         <!-- <p class="text-sm font-medium text-gray-900">{{ user.name }}</p> -->
-        <p class="text-sm text-gray-500 dark:text-gray-300">{{ user.email }}</p>
+        <p class="text-sm text-gray-500 dark:text-gray-300">{{ user.username }}</p>
       </div>
       <button
         @click="$emit('remove', user._id)"

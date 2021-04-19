@@ -114,7 +114,7 @@
               v-if="user"
               class="text-sm font-medium text-gray-500 dark:text-gray-300"
             >
-              {{ user.email }}
+              {{ user.username }}
             </div>
           </div>
           <Toggle

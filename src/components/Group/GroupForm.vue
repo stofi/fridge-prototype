@@ -1,5 +1,9 @@
 <template>
-  <form autocomplete="off" @submit="emitAdd" class="space-y-2 max-w-xs mt-4 px-4">
+  <form
+    autocomplete="off"
+    @submit="emitAdd"
+    class="space-y-2 max-w-xs mt-4 px-4"
+  >
     <InputElement name="Name" v-model="name">
       <template v-slot:error v-if="!start && !nameValid">
         Name must not be empty.
@@ -16,7 +20,7 @@
         <UserList :users="selectedUsers" @remove="removeUser" />
       </template>
       <template #itemLabel="{ item }">
-        {{ item.email }}
+        {{ item.username }}
       </template>
     </SearchMultiSelect>
     <div class="pt-2 flex justify-end">
@@ -68,10 +72,9 @@ function emitAdd() {
     start.value = false
   }
   if (!nameValid.value) return
-  console.log(selectedUsers.value.map(({_id})=>_id));
   emit('add', {
     name: name.value,
-    members: selectedUsers.value.map(({_id})=>_id),
+    members: selectedUsers.value.map(({ _id }) => _id),
   })
 }
 </script>

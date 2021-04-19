@@ -8,6 +8,7 @@ export function users({ feathers }) {
     static instanceDefaults() {
       return {
         email: '',
+        username: '',
         password: '',
       }
     }
