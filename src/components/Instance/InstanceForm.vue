@@ -2,30 +2,31 @@
   <form
     autocomplete="off"
     @submit="emitAdd"
-    class="space-y-2 max-w-xs mt-4 px-4"
+    class="space-y-2 max-w-xs mt-4 px-4 flex flex-col-reverse"
   >
     <SearchSelect
-      class=""
+      class="order-5"
       name="Group"
       v-model="selectedGroup"
       :items="searchGroups"
       @update:searchValue="updateGroupSearch"
     />
     <SearchSelect
-      class=""
+      class="order-4"
       name="Space"
       v-model="selectedSpace"
       :items="filtredSpaces"
       @update:searchValue="updateSpaceSearch"
     />
     <SearchSelect
-      class=""
+      class="order-3"
       name="Product"
       v-model="selectedProduct"
       :items="searchProducts"
       @update:searchValue="updateProductSearch"
     />
     <InputElement
+      class="order-2"
       :name="selectedProduct.unit ? selectedProduct.unit : 'Quantity'"
       type="text"
       v-model="quantity"
@@ -37,10 +38,9 @@
         <span v-if="quantityNaN"> Quantity must be a number. </span>
       </template>
     </InputElement>
-    <div class="pt-2 flex justify-end">
+    <div class="pt-2 flex justify-end order-1">
       <ButtonAdd class="self-end" @click="emitAdd" />
     </div>
-
   </form>
 </template>
 
