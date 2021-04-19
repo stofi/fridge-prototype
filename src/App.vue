@@ -5,14 +5,16 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount, computed } from 'vue'
-import { useStore } from 'vuex'
 import Layout from './components/Layout.vue'
+
+import { onBeforeMount } from 'vue'
+import { useStore } from 'vuex'
+
 import useDarkmode from './compositions/useDarkmode'
-const target = ref(null)
-const { state, dispatch } = useStore()
-const authState = computed(() => state.auth)
+
+const { dispatch } = useStore()
 const { darkModeEnabled } = useDarkmode()
+
 onBeforeMount(() => {
   dispatch('initializeState')
 })
