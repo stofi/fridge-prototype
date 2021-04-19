@@ -8,14 +8,14 @@
       class="order-5"
       name="Group"
       v-model="selectedGroup"
-      :items="searchGroups"
+      :items="searchGroupsNamed"
       @update:searchValue="updateGroupSearch"
     />
     <SearchSelect
       class="order-4"
       name="Space"
       v-model="selectedSpace"
-      :items="filtredSpaces"
+      :items="filtredSpacesNamed"
       @update:searchValue="updateSpaceSearch"
     />
     <SearchSelect
@@ -63,6 +63,7 @@ import useProduct from '../../compositions/services/useProduct'
 import useSpace from '../../compositions/services/useSpace'
 import useGroup from '../../compositions/services/useGroup'
 import useQuantity from '../../compositions/useQuantity'
+import useUser from '../../compositions/useUser'
 
 const { searchLoaded, searchProducts, updateProductSearch } = useProduct()
 const { searchSpaces, updateSpaceSearch } = useSpace()
@@ -75,6 +76,29 @@ const {
   quantityNegative,
 } = useQuantity()
 
+const { emit } = useContext()
+const start = ref(true)
+const { user } = useUser()
+
+const selectedProduct = ref({ _id: 0 })
+const selectedGroup = ref({ _id: 0 })
+const selectedSpace = ref({ _id: 0 })
+const purchaseDate = ref(new Date())
+const untilDate = ref(new Date())
+
+const searchGroupsNamed = computed(() =>
+  searchGroups.value.map((group) => {
+    if (!group.default) return group
+    return {
+      ...group,
+      name:
+        group.owner._id === user.value._id
+          ? 'Mine'
+          : `${group.owner.username}'s`,
+    }
+  })
+)
+
 const filtredSpaces = computed(() => {
   if (selectedGroup.value._id == 0) return searchSpaces.value
   return searchSpaces.value.filter(
@@ -82,14 +106,17 @@ const filtredSpaces = computed(() => {
   )
 })
 
-const { emit } = useContext()
-const start = ref(true)
-
-const selectedProduct = ref({ _id: 0 })
-const selectedGroup = ref({ _id: 0 })
-const selectedSpace = ref({ _id: 0 })
-const purchaseDate = ref(new Date())
-const untilDate = ref(new Date())
+const filtredSpacesNamed = computed(() =>
+  filtredSpaces.value.map((space) => {
+    if (!space.default) return space
+    return {
+      ...space,
+      name: `Uncategorized ${
+        space.group.default ? '' : `(${space.group.name})`
+      }`,
+    }
+  })
+)
 
 watchEffect(() => {
   if (!selectedSpace.value._id === 0) return

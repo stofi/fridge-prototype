@@ -63,7 +63,6 @@ function emitAdd() {
   if (!nameValid.value) return
   if (!quantityValid.value) return
   if (!unitValid.value) return
-  console.log(unit, unit.value)
   emit('add', {
     name: name.value,
     defaultQuantity: Number(quantity.value),

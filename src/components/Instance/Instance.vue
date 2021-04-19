@@ -5,7 +5,7 @@
           <p class="text-sm font-bold text-brand truncate">
             {{ product.name }}
           </p>
-          <p class="text-sm ">{{ space.name }}</p>
+          <p class="text-sm ">{{ spaceName }}</p>
           <p class="text-sm text-gray-500">
             {{ quantity }}
             {{ product.unit }}
@@ -25,8 +25,10 @@
 
 <script setup>
 import ListItem from '../ListItem.vue'
-import { defineProps } from 'vue'
+import { defineProps, computed } from 'vue'
 import ButtonAdd from '../Button/ButtonAdd.vue'
+import useUserService from '../../compositions/services/useUserService'
+import useUser from '../../compositions/useUser'
 
 const props = defineProps({
   product: {
@@ -50,6 +52,18 @@ const props = defineProps({
   purchaseDate: { type: String },
   untilDate: { type: String },
 })
+
+
+const { getUser, user: owner } = useUserService()
+const { user } = useUser()
+
+const spaceName = computed(() =>
+  props.space.default
+    ? owner._id === user._id
+      ? 'Mine uncategorized'
+      : `${owner.username}'s uncategorized`
+    : props.space.name
+)
 </script>
 
 <style></style>

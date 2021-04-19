@@ -7,7 +7,7 @@ export default function ({ model, searchField = 'name' }) {
   const params = computed(() => ({
     query: {
       [searchField]: {
-        $regex: search.value,
+        $regex: `(${search.value})|(default)`,
         $options: 'i',
       },
     },

@@ -3,6 +3,7 @@ import { computed, inject, ref, watch } from 'vue'
 import { useFind } from '@feathersjs/vuex'
 import useSearch from './useSearch'
 import useQuery from './useQuery'
+import useGet from './useGet'
 
 export default function ({ model, name, searchField = 'name', query }) {
   const { dispatch } = useStore()
@@ -22,10 +23,9 @@ export default function ({ model, name, searchField = 'name', query }) {
       query: {},
     },
   })
-  
+  const { item, getItem } = useGet({ model})
 
   function add(item) {
-    console.log(item)
     let newItem = model.instanceDefaults()
     newItem = {
       ...newItem,
@@ -42,6 +42,8 @@ export default function ({ model, name, searchField = 'name', query }) {
     add,
     remove,
     items,
+    item,
+    getItem,
     haveLoaded,
     searchLoaded,
     searchItems,

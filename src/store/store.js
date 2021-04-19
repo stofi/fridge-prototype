@@ -23,7 +23,7 @@ export function setupStore({ feathers }) {
     getters: {},
     modules: {},
     plugins: [
-      createLogger(),
+      // createLogger(),
       users({ feathers }),
       groups({ feathers }),
       instances({ feathers }),

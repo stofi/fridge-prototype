@@ -8,7 +8,7 @@
     <SearchSelect
       name="Group"
       v-model="selectedGroup"
-      :items="searchGroups"
+      :items="searchGroupsNamed"
       @update:searchValue="updateGroupSearch"
     />
     <div class="pt-2 flex justify-end">
@@ -30,7 +30,7 @@ import InputElement from '../Form/InputElement.vue'
 import SearchSelect from '../Form/SearchSelect.vue'
 import ButtonAdd from '../Button/ButtonAdd.vue'
 import useName from '../../compositions/useName'
-
+import useUser from '../../compositions/useUser'
 import useGroup from '../../compositions/services/useGroup'
 
 defineEmit(['add'])
@@ -38,9 +38,22 @@ const { emit } = useContext()
 
 const selectedGroup = ref({ _id: 0 })
 const start = ref(true)
-
+const { user } = useUser()
 const { name, nameEmpty, nameValid } = useName()
 const { searchLoaded, searchGroups, updateGroupSearch } = useGroup()
+
+const searchGroupsNamed = computed(() =>
+  searchGroups.value.map((group) => {
+    if (!group.default) return group
+    return {
+      ...group,
+      name:
+        group.owner._id === user.value._id
+          ? 'Mine'
+          : `${group.owner.username}'s`,
+    }
+  })
+)
 
 function emitAdd() {
   if (start.value) {

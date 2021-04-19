@@ -7,6 +7,8 @@ export default function () {
   const {
     add,
     remove,
+    item: space,
+    getItem: getSpace,
     items: spaces,
     haveLoaded,
     searchLoaded,
@@ -19,6 +21,8 @@ export default function () {
 
   return {
     add,
+    space,
+    getSpace,
     remove,
     spaces,
     haveLoaded,

@@ -7,6 +7,8 @@ export default function () {
 
   const {
     items: users,
+    item: user,
+    getItem: getUser,
     haveLoaded,
     searchLoaded,
     searchItems: searchUsers,
@@ -14,11 +16,13 @@ export default function () {
   } = useService({
     model: User,
     name: 'users',
-    searchField: 'email',
+    searchField: 'username',
   })
 
   return {
     users,
+    user,
+    getUser,
     haveLoaded,
     searchLoaded,
     searchUsers,

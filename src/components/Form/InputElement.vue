@@ -22,7 +22,7 @@
         />
       </div>
     </div>
-    <p class="mt-2 text-sm text-red-600" id="email-error">
+    <p class="mt-2 text-sm text-red-600" :id="`${id}-error`">
       <slot name="error" />
     </p>
   </div>
