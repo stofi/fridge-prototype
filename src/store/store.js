@@ -11,7 +11,15 @@ export function setupStore({ feathers }) {
       return {}
     },
     mutations: {},
-    actions: {},
+    actions: {
+      initializeState({ state }) {
+        if (localStorage.getItem('state')) {
+          this.replaceState(
+            Object.assign(state, JSON.parse(localStorage.getItem('state')))
+          )
+        }
+      },
+    },
     getters: {},
     modules: {},
     plugins: [
@@ -24,5 +32,12 @@ export function setupStore({ feathers }) {
       feathers.apiVuex.makeAuthPlugin({ userService: 'users' }),
     ],
   })
+
+  store.subscribe((mutation, state) => {
+    if (state) {
+      localStorage.setItem('state', JSON.stringify(state))
+    }
+  })
+
   return store
 }
