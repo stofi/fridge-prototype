@@ -1,32 +1,31 @@
 import { useStore } from 'vuex'
-import { computed, inject, ref } from 'vue'
+import { computed, inject, ref, watch } from 'vue'
 import { useFind } from '@feathersjs/vuex'
+import useSearch from './useSearch'
+import useQuery from './useQuery'
 
-export default function ({ model, name, searchField = 'name' }) {
+export default function ({ model, name, searchField = 'name', query }) {
   const { dispatch } = useStore()
   const feathers = inject('feathers')
-  const search = ref('')
-  const searchParams = computed(() => ({
-    query: {
-      [searchField]: {
-        $regex: search.value,
-        $options: 'i',
-      },
-    },
-  }))
+  const { searchLoaded, searchItems, updateSearch } = useSearch({
+    model,
+    searchField,
+  })
+  const { queryItems, queryLoaded } = useQuery({
+    model,
+    query,
+  })
+
   const { items, haveLoaded } = useFind({
     model,
     params: {
       query: {},
     },
   })
-  const { items: searchItems, haveLoaded: searchLoaded } = useFind({
-    model,
-    params: searchParams,
-  })
+  
 
   function add(item) {
-    console.log(item);
+    console.log(item)
     let newItem = model.instanceDefaults()
     newItem = {
       ...newItem,
@@ -39,10 +38,6 @@ export default function ({ model, name, searchField = 'name' }) {
     dispatch(`${name}/remove`, id)
   }
 
-  function updateSearch(value) {
-    search.value = value
-  }
-
   return {
     add,
     remove,
@@ -51,5 +46,7 @@ export default function ({ model, name, searchField = 'name' }) {
     searchLoaded,
     searchItems,
     updateSearch,
+    queryItems,
+    queryLoaded,
   }
 }

@@ -1,5 +1,5 @@
 import { inject, computed } from 'vue'
-import useService from './useService'
+import useService from '../useService'
 
 export default function () {
   const feathers = inject('feathers')
