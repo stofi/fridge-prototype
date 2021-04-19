@@ -33,11 +33,11 @@ export function setupStore({ feathers }) {
     ],
   })
 
-  store.subscribe((mutation, state) => {
-    if (state) {
-      localStorage.setItem('state', JSON.stringify(state))
-    }
-  })
+  // store.subscribe((mutation, state) => {
+  //   if (state) {
+  //     localStorage.setItem('state', JSON.stringify(state))
+  //   }
+  // })
 
   return store
 }

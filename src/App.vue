@@ -16,6 +16,6 @@ const { dispatch } = useStore()
 const { darkModeEnabled } = useDarkmode()
 
 onBeforeMount(() => {
-  dispatch('initializeState')
+  // dispatch('initializeState')
 })
 </script>
