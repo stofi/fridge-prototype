@@ -69,8 +69,8 @@ const props = defineProps({
     }),
   },
   quantity: { type: Number, default: 1 },
-  purchaseDate: { type: Date, default: () => new Date() },
-  untilDate: { type: Date, default: () => new Date() },
+  purchaseDate: { type: String },
+  untilDate: { type: String },
 })
 </script>
 
