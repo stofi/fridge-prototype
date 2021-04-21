@@ -9,6 +9,7 @@ export function setupFeathers({ storage = window.localStorage }) {
   const apiUrl = import.meta.env.VITE_API_URL
   const socket = io(apiUrl, { transports: ['websocket'] })
 
+
   const apiClient = feathers()
     .configure(socketio(socket))
     .configure(auth({ storage }))

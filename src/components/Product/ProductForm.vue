@@ -46,7 +46,7 @@ const { emit } = useContext()
 
 const start = ref(true)
 
-const { unit, unitValid, units } = useUnit()
+const { unit, unitValid, units, setUnit } = useUnit()
 const {
   quantity,
   quantityValid,
