@@ -14,6 +14,8 @@ export default function () {
     searchLoaded,
     searchItems: searchSpaces,
     updateSearch: updateSpaceSearch,
+    queryItems: querySpaces,
+    setQuery: setSpaceQuery,
   } = useService({
     model: Space,
     name: 'spaces',
@@ -29,5 +31,7 @@ export default function () {
     searchLoaded,
     searchSpaces,
     updateSpaceSearch,
+    querySpaces,
+    setSpaceQuery,
   }
 }

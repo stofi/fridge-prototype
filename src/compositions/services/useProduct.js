@@ -7,6 +7,8 @@ export default function () {
   const {
     add,
     remove,
+    item: product,
+    getItem: getProduct,
     items: products,
     haveLoaded,
     searchLoaded,
@@ -20,6 +22,8 @@ export default function () {
   return {
     add,
     remove,
+    product,
+    getProduct,
     products,
     haveLoaded,
     searchLoaded,

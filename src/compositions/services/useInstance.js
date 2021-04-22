@@ -7,11 +7,15 @@ export default function () {
   const {
     add,
     remove,
+    item: instance,
     items: instances,
+    getItem: getInstance,
     haveLoaded,
     searchLoaded,
     searchItems: searchInstances,
     updateSearch: updateInstanceSearch,
+    queryItems: queryInstances,
+    setQuery: setInstanceQuery,
   } = useService({
     model: Instance,
     name: 'instances',
@@ -21,9 +25,13 @@ export default function () {
     add,
     remove,
     instances,
+    instance,
+    getInstance,
     haveLoaded,
     searchLoaded,
     searchInstances,
     updateInstanceSearch,
+    queryInstances,
+    setInstanceQuery,
   }
 }

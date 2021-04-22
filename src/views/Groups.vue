@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import Group from '../components/Group/Group.vue'
+import Group from '../components/Group/GroupEntry.vue'
 import SmartList from '../components/SmartList.vue'
 import GroupForm from '../components/Group/GroupForm.vue'
 

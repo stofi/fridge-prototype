@@ -9,9 +9,9 @@
 
 <script setup>
 import SmartList from '../components/SmartList.vue'
-import Instance from '../components/Instance/Instance.vue'
+import Instance from '../components/Instance/InstanceEntry.vue'
 import InstanceForm from '../components/Instance/InstanceForm.vue'
-import useInstances from '../compositions/services/useInstances'
+import useInstances from '../compositions/services/useInstance'
 
 const { instances, add, remove, haveLoaded } = useInstances()
 

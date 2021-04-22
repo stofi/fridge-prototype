@@ -1,63 +1,77 @@
 <template>
-  <ListItem @remove="$emit('remove')">
-    <template #default>
-      <div class="">
-        <p class="text-sm font-bold text-brand truncate">
-          {{ spaceName }}
-        </p>
-        <p class="text-sm truncate">
-          {{ groupName }}
-        </p>
+  <template v-if="space">
+    <div
+      class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg mt-4"
+    >
+      <div class="px-4 py-5 sm:px-6">
+        <h3
+          class="text-lg sm:text-2xl leading-6 font-bold text-gray-900 dark:text-gray-100"
+        >
+          {{ space.name }}
+        </h3>
       </div>
-    </template>
-  </ListItem>
+      <div
+        class="border-t border-gray-200 dark:border-gray-900 px-4 py-5 sm:px-6"
+      >
+        <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Owner
+            </dt>
+            <dd class="mt-1 text-sm text-gray-500">
+              <span class="font-bold text-brand">
+                {{ space.group.owner }}
+              </span>
+            </dd>
+          </div>
+
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Instances
+            </dt>
+            <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">
+              <ul
+                class="border border-gray-200 dark:border-gray-900 rounded-md divide-y divide-gray-200 dark:divide-gray-900"
+              >
+                <li
+                  v-for="instance in queryInstances"
+                  :key="instance._id"
+                  class="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
+                >
+                  <router-link
+                    :to="`/inventory/${instance._id}`"
+                    class="ml-2 flex-1 w-0 truncate text-brand font-bold"
+                  >
+                    {{ instance.product.name }}
+                    {{ instance.quantity }}
+                    {{ instance.product.unit }}
+                  </router-link>
+                </li>
+              </ul>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </template>
 </template>
 
 <script setup>
-import ListItem from '../ListItem.vue'
+import { computed, defineProps, reactive, inject } from 'vue'
 
-import { defineProps, watchEffect, computed } from 'vue'
-import useUserService from '../../compositions/services/useUserService'
-import useUser from '../../compositions/useUser'
+import useSpace from '../../compositions/services/useSpace'
+import useInstance from '../../compositions/services/useInstance'
 
 const props = defineProps({
-  name: {
+  id: {
     type: String,
-    default: '',
-  },
-  default: {
-    type: Boolean,
-    default: false
-  },
-  group: {
-    type: Object,
-    default: () => ({
-      name: '',
-      members: [],
-    }),
+    required: true,
   },
 })
-
-const { getUser, user: owner } = useUserService()
-const { user } = useUser()
-
-watchEffect(() => {
-  getUser(props.group.owner)
+const { space, getSpace } = useSpace()
+const { queryInstances, setInstanceQuery } = useInstance()
+getSpace(props.id)
+setInstanceQuery({
+  'space._id': props.id,
 })
-
-const spaceName = computed(() =>
-  props.default
-    ? 'Uncategorized'
-    : props.name
-)
-
-const groupName = computed(() =>
-  props.group.default
-    ? owner._id === user._id
-      ? 'Mine'
-      : `${owner.username}'s`
-    : props.group.name
-)
 </script>
-
-<style></style>

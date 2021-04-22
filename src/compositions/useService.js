@@ -12,7 +12,7 @@ export default function ({ model, name, searchField = 'name', query }) {
     model,
     searchField,
   })
-  const { queryItems, queryLoaded } = useQuery({
+  const { queryItems, queryLoaded, setQuery } = useQuery({
     model,
     query,
   })
@@ -50,5 +50,6 @@ export default function ({ model, name, searchField = 'name', query }) {
     updateSearch,
     queryItems,
     queryLoaded,
+    setQuery,
   }
 }

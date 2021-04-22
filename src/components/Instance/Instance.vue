@@ -1,69 +1,28 @@
 <template>
-  <ListItem @remove="$emit('remove')">
-    <template #default>
-        <div class="">
-          <p class="text-sm font-bold text-brand truncate">
-            {{ product.name }}
-          </p>
-          <p class="text-sm ">{{ spaceName }}</p>
-          <p class="text-sm text-gray-500">
-            {{ quantity }}
-            {{ product.unit }}
-          </p>
-        </div>
-        <div class="">
-          <p class="text-sm text-gray-500">
-            {{ purchaseDate }}
-          </p>
-          <p class="text-sm text-gray-500">
-            {{ untilDate }}
-          </p>
-        </div>
-    </template>
-  </ListItem>
+  <template v-if="instance">
+    <div>
+      {{instance.quantity}} {{instance.product.unit}}
+      <div>{{instance.space.name}}</div>
+      <div>
+        Default: <Product :id="instance.product._id" />
+      </div>
+    </div>
+  </template>
 </template>
 
 <script setup>
-import ListItem from '../ListItem.vue'
-import { defineProps, computed } from 'vue'
-import ButtonAdd from '../Button/ButtonAdd.vue'
-import useUserService from '../../compositions/services/useUserService'
-import useUser from '../../compositions/useUser'
+import { computed, defineProps } from 'vue'
+import Product from '../Product/Product.vue'
+
+import useInstance from '../../compositions/services/useInstance'
 
 const props = defineProps({
-  product: {
-    type: Object,
-    default: () => ({
-      name: '',
-      unit: '',
-      defaultQuantity: 1,
-    }),
+  id: {
+    type: String,
+    required: true,
   },
-  space: {
-    type: Object,
-    default: () => ({
-      name: '',
-      group: {
-        name: '',
-      },
-    }),
-  },
-  quantity: { type: Number, default: 1 },
-  purchaseDate: { type: String },
-  untilDate: { type: String },
 })
 
-
-const { getUser, user: owner } = useUserService()
-const { user } = useUser()
-
-const spaceName = computed(() =>
-  props.space.default
-    ? owner._id === user._id
-      ? 'Mine uncategorized'
-      : `${owner.username}'s uncategorized`
-    : props.space.name
-)
+const { instance, getInstance } = useInstance()
+getInstance(props.id)
 </script>
-
-<style></style>

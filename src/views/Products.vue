@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import ProductComponent from '../components/Product/Product.vue'
+import ProductComponent from '../components/Product/ProductEntry.vue'
 import ProductForm from '../components/Product/ProductForm.vue'
 import SmartList from '../components/SmartList.vue'
 import useProduct from '../compositions/services/useProduct'

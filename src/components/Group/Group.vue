@@ -1,61 +1,91 @@
 <template>
-  <ListItem @remove="$emit('remove')">
-    <template #default>
-      <div class="grid grid-cols-1 md:grid-cols-11 w-full">
-        <p class="col-span-3 text-sm font-bold text-brand truncate mb-2 sm:mb-0">
-          {{ groupName }}
-        </p>
-        <p class="col-span-8 flex items-center text-sm text-gray-500 mb-2 sm:mb-0">
-          <UsersIcon
-            class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
-            aria-hidden="true"
-          />
-          <span
-            class="bg-gray-100 dark:bg-gray-900 px-2 rounded-md mx-1"
-            v-for="user in members"
-            :key="user._id"
-            >{{ user.username }}</span
-          >
-        </p>
+  <template v-if="group">
+    <div
+      class="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg mt-4"
+    >
+      <div class="px-4 py-5 sm:px-6">
+        <h3
+          class="text-lg sm:text-2xl leading-6 font-bold text-gray-900 dark:text-gray-100"
+        >
+          {{ group.name }}
+        </h3>
       </div>
-    </template>
-  </ListItem>
+      <div
+        class="border-t border-gray-200 dark:border-gray-900 px-4 py-5 sm:px-6"
+      >
+        <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Owner
+            </dt>
+            <dd class="mt-1 text-sm text-gray-500">
+              <span class="font-bold text-brand">
+                {{ group.owner.username }}
+              </span>
+            </dd>
+          </div>
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Members
+            </dt>
+            <dd class="mt-1 text-sm text-gray-500">
+              <ul>
+                <li
+                  v-for="member in group.members"
+                  :key="member._id"
+                  class="bg-gray-100 dark:bg-gray-900 px-2 rounded-md mx-1 inline-block"
+                >
+                  {{ member.username }}
+                </li>
+              </ul>
+            </dd>
+          </div>
+
+          <div class="sm:col-span-2">
+            <dt class="text-sm font-medium text-gray-700 dark:text-gray-300">
+              Spaces
+            </dt>
+            <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100">
+              <ul
+                class="border border-gray-200 dark:border-gray-900 rounded-md divide-y divide-gray-200 dark:divide-gray-900"
+              >
+                <li
+                  v-for="space in querySpaces"
+                  :key="space._id"
+                  class="pl-3 pr-4 py-3 flex items-center justify-between text-sm"
+                >
+                  <router-link
+                    :to="`/spaces/${space._id}`"
+                    class="ml-2 flex-1 w-0 truncate text-brand font-bold"
+                  >
+                    {{ space.name }}
+                  </router-link>
+                </li>
+              </ul>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </template>
 </template>
 
 <script setup>
-import ListItem from '../ListItem.vue'
-import { UsersIcon } from '@heroicons/vue/solid'
-import { defineProps, computed } from 'vue'
-import useUser from '../../compositions/useUser'
+import { computed, defineProps, reactive, inject } from 'vue'
+
+import useGroup from '../../compositions/services/useGroup'
+import useSpace from '../../compositions/services/useSpace'
 
 const props = defineProps({
-  name: {
+  id: {
     type: String,
-    default: '',
-  },
-  owner: {
-    type: Object,
-  },
-  default: {
-    type: Boolean,
-    default: false,
-  },
-  members: {
-    type: Array,
-    default: () => [],
+    required: true,
   },
 })
-
-const { user } = useUser()
-
-
-const groupName = computed(() =>
-  props.default
-    ? props.owner._id === user.value._id
-      ? 'Mine'
-      : `${props.owner.username}'s`
-    : props.name
-)
+const { group, getGroup } = useGroup()
+const { querySpaces, setSpaceQuery } = useSpace()
+getGroup(props.id)
+setSpaceQuery({
+  'group._id': props.id,
+})
 </script>
-
-<style></style>

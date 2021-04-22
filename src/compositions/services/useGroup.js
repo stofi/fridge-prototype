@@ -8,6 +8,8 @@ export default function () {
     add,
     remove,
     items: groups,
+    item: group,
+    getItem: getGroup,
     haveLoaded,
     searchLoaded,
     searchItems: searchGroups,
@@ -18,6 +20,8 @@ export default function () {
   })
 
   return {
+    group,
+    getGroup,
     add,
     remove,
     groups,

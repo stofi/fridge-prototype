@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import Space from '../components/Space/Space.vue'
+import Space from '../components/Space/SpaceEntry.vue'
 import SpaceForm from '../components/Space/SpaceForm.vue'
 import SmartList from '../components/SmartList.vue'
 import useSpaces from '../compositions/services/useSpace'
